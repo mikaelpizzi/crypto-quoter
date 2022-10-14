@@ -47,7 +47,7 @@ function App() {
       </div>
       <div>
         <Heading>Trade Cryptocurrencies Instantly</Heading>
-        
+
         <Form />
       </div>
     </Container>
