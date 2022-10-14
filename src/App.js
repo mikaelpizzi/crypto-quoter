@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Form from './components/Form';
 import image from './cryptocurrency.png'
 
 const Container = styled.div`
@@ -46,6 +47,8 @@ function App() {
       </div>
       <div>
         <Heading>Trade Cryptocurrencies Instantly</Heading>
+        
+        <Form />
       </div>
     </Container>
   );
