@@ -4,6 +4,7 @@ import axios from 'axios';
 import Form from './components/Form';
 import image from './cryptocurrency.png'
 import Quote from './components/Quote';
+import Spinner from './components/Spinner';
 
 const Container = styled.div`
   display: grid;
@@ -44,6 +45,7 @@ function App() {
   const [ currency, saveCurrency ] = useState('');
   const [ cryptocurrency, saveCryptocurrency ] = useState('');
   const [ result, saveResult ] = useState({});
+  const [ loading, saveLoading ] = useState(false);
 
   useEffect(() => {
 
@@ -55,10 +57,25 @@ function App() {
       const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptocurrency}&tsyms=${currency}`;
 
       const result = await axios.get(url);
-      saveResult(result.data.DISPLAY[cryptocurrency][currency]);
+
+      // Show spinner
+      saveLoading(true);
+
+      // Hide spinner and show result
+      setTimeout(() => {
+        // Change spinner state to false
+        saveLoading(false);
+        
+        // Save quote
+        saveResult(result.data.DISPLAY[cryptocurrency][currency]);
+      }, 900);
+
     }
     quoteCrypto();
   }, [currency, cryptocurrency])
+
+  // Show spinner or result 
+  const component = (loading) ? <Spinner /> : <Quote result={result} />
 
   return (
     <Container>
@@ -76,9 +93,7 @@ function App() {
           saveCryptocurrency={saveCryptocurrency}
         />
 
-        <Quote
-          result={result}
-        />
+        {component}
       </div>
     </Container>
   );
