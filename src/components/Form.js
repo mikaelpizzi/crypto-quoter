@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import useCryptocurrency from "../hooks/useCryptocurrency";
 import useCurrency from "../hooks/useCurrency";
 import Error from "./Error";
+import PropTypes from 'prop-types'
 
 const Button = styled.input`
     margin-top: 20px;
@@ -89,6 +90,11 @@ const Form = ({ saveCurrency, saveCryptocurrency }) => {
             />
         </form>
     );
+}
+
+Form.propTypes = {
+    saveCurrency: PropTypes.func.isRequired,
+    saveCryptocurrency: PropTypes.func.isRequired
 }
  
 export default Form;
