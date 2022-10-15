@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 import Form from './components/Form';
 import image from './cryptocurrency.png'
 
@@ -37,6 +38,18 @@ const Heading = styled.h1`
 `;
 
 function App() {
+
+  const [ currency, saveCurrency ] = useState('');
+  const [ cryptocurrency, saveCryptocurrency ] = useState ('');
+
+  useEffect(() => {
+    // Avoid first execution
+    if (currency === '') return;
+
+    console.log('Quoting...');
+
+  }, [currency, cryptocurrency])
+
   return (
     <Container>
       <div>
@@ -48,7 +61,10 @@ function App() {
       <div>
         <Heading>Trade Cryptocurrencies Instantly</Heading>
 
-        <Form />
+        <Form 
+          saveCurrency={saveCurrency}
+          saveCryptocurrency={saveCryptocurrency}
+        />
       </div>
     </Container>
   );

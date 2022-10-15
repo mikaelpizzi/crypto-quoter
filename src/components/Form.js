@@ -23,7 +23,7 @@ const Button = styled.input`
     }
 `;
 
-const Form = ({}) => {
+const Form = ({ saveCurrency, saveCryptocurrency }) => {
 
     // Cryptocurrencies list state
     const [ cryptoList, saveCrypto ] = useState([]);
@@ -70,6 +70,8 @@ const Form = ({}) => {
 
         // Pass data to principal component
         saveError(false);
+        saveCurrency(currency);
+        saveCryptocurrency(cryptocurrency);
     }
 
     return ( 
