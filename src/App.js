@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Form from './components/Form';
 import image from './cryptocurrency.png'
 
@@ -43,11 +44,18 @@ function App() {
   const [ cryptocurrency, saveCryptocurrency ] = useState ('');
 
   useEffect(() => {
-    // Avoid first execution
-    if (currency === '') return;
 
-    console.log('Quoting...');
+    const quoteCrypto = async () => {
+      // Avoid first execution
+      if (currency === '') return;
 
+      // Consult API to obtain quotation
+      const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptocurrency}&tsyms=${currency}`;
+
+      const result = await axios.get(url);
+      console.log(result.data.DISPLAY[cryptocurrency][currency]);
+    }
+    quoteCrypto();
   }, [currency, cryptocurrency])
 
   return (
