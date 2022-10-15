@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import useCryptocurrency from "../hooks/useCryptocurrency";
 import useCurrency from "../hooks/useCurrency";
 
 const Button = styled.input`
@@ -34,9 +35,14 @@ const Form = ({}) => {
     // Using useCurrency
     const [ currency, SelectCurrency ] = useCurrency('Choose Your Currency', '', CURRENCIES);
 
+    // Using useCryptocurrency
+    const [ cryptocurrency, SelectCrypto] = useCryptocurrency('Choose Your Cryptocurrency', '');
+
     return ( 
         <form>
             <SelectCurrency /> 
+
+            <SelectCrypto />
 
             <Button
                 type='submit'
