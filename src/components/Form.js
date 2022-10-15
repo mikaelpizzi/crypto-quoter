@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import useCryptocurrency from "../hooks/useCryptocurrency";
 import useCurrency from "../hooks/useCurrency";
+import Error from "./Error";
 
 const Button = styled.input`
     margin-top: 20px;
@@ -25,7 +26,8 @@ const Button = styled.input`
 const Form = ({}) => {
 
     // Cryptocurrencies list state
-    const [ cryptoList, saveCrypto] = useState([]);
+    const [ cryptoList, saveCrypto ] = useState([]);
+    const [ error, saveError ] = useState(false);
 
     const CURRENCIES = [
         { code: 'USD', name: 'American Dollar' },
@@ -56,8 +58,25 @@ const Form = ({}) => {
         consultAPI();
     }, []);
 
+    // When user submits
+    const quoteCurrency = e => {
+        e.preventDefault();
+
+        // Check if both fields are filled
+        if (currency === '' || cryptocurrency === '') {
+            saveError(true);
+            return;
+        }
+
+        // Pass data to principal component
+        saveError(false);
+    }
+
     return ( 
-        <form>
+        <form
+            onSubmit={quoteCurrency}
+        >
+            { error ? <Error message='All Fields Are Required' /> : null }
             <SelectCurrency /> 
 
             <SelectCrypto />
